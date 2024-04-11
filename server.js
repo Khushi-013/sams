@@ -15,28 +15,38 @@ app.get('/', (req, res) => {
 
 // Route to create attendance record
 app.post('/attendance', (req, res) => {
-    const { date, studentName } = req.body;
-    if (!date || !studentName) {
-        return res.status(400).json({ message: 'Date and student name are required' });
+    const { studentName } = req.body;
+    if (!studentName) {
+        return res.status(400).json({ message: 'Student name is required' });
     }
-    attendanceData.push({ date, studentName });
-    res.status(201).json({ message: 'Attendance record created', attendance: { date, studentName } });
+    const attendanceRecord = {
+        date: new Date().toISOString(), // Store the current date and time
+        studentName,
+        attendance: 'Present' // Defaulting to 'Present' for simplicity
+    };
+    attendanceData.push(attendanceRecord);
+    res.status(201).json({ message: 'Attendance record created', attendance: attendanceRecord });
 });
 
 // Route to get all attendance records
 app.get('/attendance', (req, res) => {
+    if (attendanceData.length === 0) {
+        return res.json({ message: 'No attendance records found' });
+    }
     res.json(attendanceData);
 });
+
 
 // Route to update attendance record
 app.put('/attendance/:date', (req, res) => {
     const dateToUpdate = req.params.date;
-    const { studentName } = req.body;
+    const { studentName, attendance } = req.body;
     const recordIndex = attendanceData.findIndex(record => record.date === dateToUpdate);
     if (recordIndex === -1) {
         return res.status(404).json({ message: 'Attendance record not found' });
     }
     attendanceData[recordIndex].studentName = studentName;
+    attendanceData[recordIndex].attendance = attendance;
     res.json({ message: 'Attendance record updated', attendance: attendanceData[recordIndex] });
 });
 
