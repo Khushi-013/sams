@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Management System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <img src="download.jpeg" alt="College Logo" class="logo">
+    <h1>Vidyavardhini's College of Engineering & Technology, Vasai</h1>
+  </header>
+  <div class="container">
+    <h2>Attendance Management System</h2>
+    <form id="attendanceForm">
+      <input type="text" id="studentName" placeholder="Enter Student Name">
+      <button type="submit">Add</button>
+    </form>
+    <div>
+      <label for="selectDate">Select Date:</label>
+      <input type="date" id="selectDate">
+      <button id="changeDate">Change Date</button>
+    </div>
+    <table id="attendanceTable">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Attendance</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Attendance data will be populated here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
